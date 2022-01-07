@@ -8,23 +8,21 @@ import javax.persistence.Persistence;
 public class JpaMain {
 
     public static void main(String[] args) {
-
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
         EntityManager em = emf.createEntityManager();
 
         // 트랜잭션 호출
         EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
         try {
-            tx.begin();
-
+            /*
             Member member = new Member();
-
             member.setId(1L);
             member.setName("HelloA");
-
             em.persist(member); // jpa 저장
-
+            */
             tx.commit();
         }catch (Exception e){
             tx.rollback();
