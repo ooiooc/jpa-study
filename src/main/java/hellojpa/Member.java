@@ -1,31 +1,46 @@
 package hellojpa;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GeneratorType;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
+import static javax.persistence.FetchType.LAZY;
+
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Member {
 
-    @Id
+    @Id @GeneratedValue
     private Long id;
-    private String name;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "USERNAME") // db 테이블명 설정, not null
+    private String username;
 
-    public String getName() {
-        return name;
-    }
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "TEAM_ID")
+    public Team team;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+/*    private Integer age;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastmodifiedDate;
+
+    @Lob
+    private String description;
+
+    @Transient // DB와 상관없는 컬럼에 적용
+    private int temp;*/
 
 }
